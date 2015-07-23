@@ -13,45 +13,37 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.concretepage.config.AppConfig;
 import com.concretepage.service.IUserService;
+import com.concretepage.service.UserService2;
 
-/**
- * サービス層の権限制御がかかったメソッドのテストサンプルです。
- * @author nagase
- *
- */
 @RunWith(SpringJUnit4ClassRunner.class) 
 @ContextConfiguration(classes = AppConfig.class)
 @WebAppConfiguration
-public class SpringSecurityTest {
+public class SpringSecurityTest2 {
 	@Autowired
-	public IUserService userService;
+	public UserService2 userService2;
 	@Autowired
 	public UserDetailsService userDetailsService;
 	
 	@Test(expected = AuthenticationCredentialsNotFoundException.class)
 	public void testOne() {
-		userService.methodOne();
+		userService2.methodOne();
 	}
-//	@Test
-//	@WithMockUser
-//    public void testOne2() {
-//        userService.methodOne();
-//    }
+	
 	@Test
 	@WithMockUser(roles={"ADMIN"})
 	public void testTwo() {
-		userService.methodTwo("This is Admin");
+		userService2.methodTwo("This is Admin");
 	}
 	@Test
 	@WithMockUser(username = "ravan")
 	public void testThree() {
 		User user = new User();
 		user.setUserName("ravan");
-		userService.methodThree(user);
+		userService2.methodThree(user);
 	}
 	@Test
 	@WithUserDetails("ram") 
 	public void testFour() {
-		userService.methodFour();
+		userService2.methodFour();
 	}
 }
