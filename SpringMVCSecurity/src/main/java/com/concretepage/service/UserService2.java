@@ -10,7 +10,7 @@ import com.concretepage.User;
 @Service
 public class UserService2 {
   
-  //@Secured("authenticated")
+  @Secured("authenticated")
   public void methodOne(){
     System.out.println("OK!");
   };
